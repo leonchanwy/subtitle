@@ -7,6 +7,7 @@ import requests
 import gdown
 import os
 from pathlib import Path
+import tempfile
 
 
 
@@ -42,7 +43,7 @@ def transcribe_audio(compressed_file):
         response = requests.post(
             'https://api.openai.com/v1/audio/transcriptions',
             headers={
-                'Authorization': f'Bearer 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',
+                'Authorization': f'Bearer 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',
             },
             data={
                 'model': 'whisper-1',
@@ -61,6 +62,7 @@ def transcribe_audio(compressed_file):
         return srt_file
     else:
         print(f"Error transcribing audio: {response.text}")
+        return None
         
         
         
