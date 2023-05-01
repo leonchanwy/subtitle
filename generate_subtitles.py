@@ -5,9 +5,6 @@ import shutil
 from pydub import AudioSegment
 import requests
 import gdown
-import os
-from pathlib import Path
-import tempfile
 
 
 
@@ -35,19 +32,17 @@ def compress_audio(input_file, target_size=21):
 
     return output_file
 
-def transcribe_audio(compressed_file):
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".srt") as temp:
-        srt_file = temp.name
+def transcribe_audio(compressed_file, srt_file):
     
     with open(compressed_file, 'rb') as f:
         response = requests.post(
             'https://api.openai.com/v1/audio/transcriptions',
             headers={
-                'Authorization': f'Bearer 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',
+                'Authorization': f'Bearer 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',
             },
             data={
                 'model': 'whisper-1',
-                'language': 'zh', 
+                'language': 'zh', #這裏可以改你想轉譯的文字'zh'是中文'ja'是日文、'en'是英文
                 'prompt': 'Eko去死...?我是Sandra和七分編!',
                 'response_format': 'srt',
             },
@@ -55,16 +50,12 @@ def transcribe_audio(compressed_file):
         )
         
     if response.status_code == 200:
-        with open(srt_file, 'w') as f:
+        with open(srt_file, 'w', encoding='utf-8') as f:
             f.write(response.text)
-        print(f"字幕內容：{response.text}")
-        print(f"字幕文件名：{srt_file}")
-        return srt_file
     else:
         print(f"Error transcribing audio: {response.text}")
-        return None
-        
-        
+        raise Exception(f"Error transcribing audio: {response.text}")
+
         
 if __name__ == "__main__":
     google_drive_video_link = "https://drive.google.com/file/d/1pkm5_UE4HhO6UUZHdCEkZnlNtzSNLAAU/view?usp=sharing"
