@@ -82,8 +82,8 @@ user_prompt = st.text_input(
     help='提示可幫助改善轉譯。模型會匹配提示風格。'
 )
 
-default_api_key = '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'
-user_api_key = st.text_input('請輸入您的 API 金鑰（使用預設值，直接點擊 Enter）：', default_value=default_api_key, type="password")
+default_api_key = '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'
+user_api_key = st.text_input('請輸入您的 API 金鑰（使用預設值，直接點擊 Enter）：', default_api_key, type="password")
 
 uploaded_file = st.file_uploader("請上傳 MP3 或 MP4 檔案：", type=["mp3", "mp4"])
 

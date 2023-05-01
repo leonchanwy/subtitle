@@ -38,8 +38,7 @@ def transcribe_audio(compressed_file, srt_file, language, prompt, api_key):
         response = requests.post(
             'https://api.openai.com/v1/audio/transcriptions',
             headers={
-                'Content-Type': 'application/json',
-                'Authorization': f'Bearer {api_key}',            },
+                'Authorization': f'Bearer {api_key}'},
             data={
                 'model': 'whisper-1',
                 'language': language, #這裏可以改你想轉譯的文字'zh'是中文'ja'是日文、'en'是英文
