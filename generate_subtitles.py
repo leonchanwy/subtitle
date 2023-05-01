@@ -52,6 +52,8 @@ def transcribe_audio(compressed_file, srt_file):
     if response.status_code == 200:
         with open(srt_file, 'w') as f:
             f.write(response.text)
+        print(f"字幕內容：{response.text}")
+        print(f"字幕文件名：{srt_file}")
     else:
         print(f"Error transcribing audio: {response.text}")
         
