@@ -77,10 +77,13 @@ selected_language = st.selectbox('請選擇轉譯語言：', options=list(langua
 default_prompt = 'Eko去死...?我是Sandra和七分編!'
 
 user_prompt = st.text_input(
-    '請輸入 Prompt 以改進轉譯品質（使用預設值可以直接跳過）：',
+    '請輸入 Prompt 以改進轉譯品質（使用預設值，直接點擊 Enter）：',
     default_prompt,
     help='提示可幫助改善轉譯。模型會匹配提示風格。'
 )
+
+default_api_key = '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'
+user_api_key = st.text_input('請輸入您的 API 金鑰（使用預設值，直接點擊 Enter）：', default_value=default_api_key, type="password")
 
 uploaded_file = st.file_uploader("請上傳 MP3 或 MP4 檔案：", type=["mp3", "mp4"])
 
@@ -107,7 +110,7 @@ if uploaded_file is not None:
     with st.spinner("生成字幕中..."):
         start_time = time.time()
         srt_file = f"srt_{os.path.basename(temp_file_name)}.srt"
-        transcribe_audio(compressed_file, srt_file, language_options[selected_language], user_prompt)
+        transcribe_audio(compressed_file, srt_file, language_options[selected_language], user_prompt, user_api_key)
         elapsed_time = time.time() - start_time
         st.write(f"生成字幕所需時間：{elapsed_time:.2f} 秒")
     
