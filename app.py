@@ -20,24 +20,16 @@ if uploaded_file is not None:
     with tempfile.NamedTemporaryFile(delete=False) as temp_file:
         temp_file.write(uploaded_file.getvalue())
         temp_file_name = temp_file.name
-
-    if os.path.splitext(temp_file_name)[1] == ".mp4":
-        with st.spinner("壓縮音訊中..."):
-            start_time = time.time()
-            compressed_file = compress_audio(temp_file_name)
-            elapsed_time = time.time() - start_time
-            st.write(f"壓縮音訊所需時間：{elapsed_time:.2f} 秒")
-    else:
-        with st.spinner("壓縮音訊中..."):
-            start_time = time.time()
-            compressed_file = compress_audio(temp_file_name)
-            elapsed_time = time.time() - start_time
-            st.write(f"壓縮音訊所需時間：{elapsed_time:.2f} 秒")
+    
+    with st.spinner("壓縮音訊中..."):
+        start_time = time.time()
+        compressed_file = compress_audio(temp_file_name)
+        elapsed_time = time.time() - start_time
+        st.write(f"壓縮音訊所需時間：{elapsed_time:.2f} 秒")
     
     with st.spinner("生成字幕中..."):
         start_time = time.time()
-        srt_file = f"srt_{os.path.basename(temp_file_name)}.srt"
-        transcribe_audio(compressed_file, srt_file)
+        srt_file = transcribe_audio(compressed_file)
         elapsed_time = time.time() - start_time
         st.write(f"生成字幕所需時間：{elapsed_time:.2f} 秒")
     
@@ -52,5 +44,5 @@ if uploaded_file is not None:
     srt_bytes = srt_data.encode('utf-8')
     b64 = base64.b64encode(srt_bytes).decode()
     
-    href = f'<a href="data:file/srt;base64,{b64}" download="{srt_file}" target="_blank">點擊此處下載字幕檔案</a>'
+    href = f'<a href="data:file/srt;base64,{b64}" download="{Path(srt_file).name}" target="_blank">點擊此處下載字幕檔案</a>'
     st.markdown(href, unsafe_allow_html=True)
