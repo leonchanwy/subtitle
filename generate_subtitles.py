@@ -38,7 +38,7 @@ def transcribe_audio(compressed_file, srt_file):
         response = requests.post(
             'https://api.openai.com/v1/audio/transcriptions',
             headers={
-                'Authorization': f'Bearer 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',
+                'Authorization': f'Bearer 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',
             },
             data={
                 'model': 'whisper-1',
