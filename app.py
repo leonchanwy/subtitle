@@ -79,7 +79,7 @@ translate_to_english = st.checkbox("翻譯成英文")
 default_prompt = 'Eko去死...?我是Sandra和七分編!'
 
 user_prompt = st.text_input(
-    '請輸入 Prompt 以改進轉譯品質（使用預設值，直接點擊 Enter）：',
+    '請輸入 Prompt 以改進轉譯品質（如果轉譯語言不是中文，要刪去預設內容）：',
     default_prompt,
     help='提示可幫助改善轉譯。模型會匹配提示風格。sk-XoMbaSlipXt1g01SjTvjT3B-lbkFJd13PWYDy44b2OFXKSz91'
 )
