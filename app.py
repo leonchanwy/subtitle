@@ -133,3 +133,4 @@ if uploaded_file is not None:
     st.markdown("以下是一些實用連結：")
     st.markdown("- [合併兩個字幕](https://subtitletools.com/merge-subtitles-online)")
     st.markdown("- [把雙行字幕變成英文大小50、中文大小75](https://colab.research.google.com/drive/16I1BLSC_LR6EFZOWGXBSJwIjJ4LfTq9s?usp=sharing)")
+    st.markdown("- [生成內容摘要SRT](https://colab.research.google.com/drive/1VgfPTfmbU2kjJ7nMXkmNMWcVbvOyqX0N?usp=sharing)")
