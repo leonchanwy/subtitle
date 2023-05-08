@@ -120,7 +120,7 @@ if uploaded_file is not None:
     st.write(f"總共所需時間：{total_elapsed_time:.2f} 秒")
 
     st.success("字幕檔案已生成！")
-    
+        
     # Convert the SRT file into a downloadable format
     with open(srt_file, 'r', encoding='utf-8') as f:
         srt_data = f.read()
@@ -129,3 +129,7 @@ if uploaded_file is not None:
     
     href = f'<a href="data:file/srt;base64,{b64}" download="{srt_file}" target="_blank">點擊此處下載字幕檔案</a>'
     st.markdown(href, unsafe_allow_html=True)
+    
+    st.markdown("以下是一些實用連結：")
+    st.markdown("- [合併兩個字幕](https://subtitletools.com/merge-subtitles-online)")
+    st.markdown("- [把雙行字幕變成英文大小50、中文大小75](https://colab.research.google.com/drive/16I1BLSC_LR6EFZOWGXBSJwIjJ4LfTq9s?usp=sharing)")
