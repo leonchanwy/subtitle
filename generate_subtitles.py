@@ -55,6 +55,27 @@ def transcribe_audio(compressed_file, srt_file, language, prompt, api_key):
         print(f"Error transcribing audio: {response.text}")
         raise Exception(f"Error transcribing audio: {response.text}")
 
+def translate_audio(compressed_file, srt_file, prompt, api_key):
+    
+    with open(compressed_file, 'rb') as f:
+        response = requests.post(
+            'https://api.openai.com/v1/audio/translations',
+            headers={
+                'Authorization': f'Bearer {api_key}'},
+            data={
+                'model': 'whisper-1',
+                'prompt': prompt,
+                'response_format': 'srt',
+            },
+            files={'file': (compressed_file, f, 'audio/mpeg')}
+        )
+        
+    if response.status_code == 200:
+        with open(srt_file, 'w', encoding='utf-8') as f:
+            f.write(response.text)
+    else:
+        print(f"Error translating audio: {response.text}")
+        raise Exception(f"Error translating audio: {response.text}")
         
 if __name__ == "__main__":
     google_drive_video_link = "https://drive.google.com/file/d/1pkm5_UE4HhO6UUZHdCEkZnlNtzSNLAAU/view?usp=sharing"

@@ -3,7 +3,7 @@ import tempfile
 import pydub
 import streamlit as st
 import time
-from generate_subtitles import compress_audio, transcribe_audio
+from generate_subtitles import compress_audio, transcribe_audio, translate_audio
 import base64
 from io import BytesIO
 
@@ -74,12 +74,14 @@ language_options = {
 
 selected_language = st.selectbox('請選擇轉譯語言：', options=list(language_options.keys()))
 
+translate_to_english = st.checkbox("翻譯成英文")
+
 default_prompt = 'Eko去死...?我是Sandra和七分編!'
 
 user_prompt = st.text_input(
     '請輸入 Prompt 以改進轉譯品質（使用預設值，直接點擊 Enter）：',
     default_prompt,
-    help='提示可幫助改善轉譯。模型會匹配提示風格。'
+    help='提示可幫助改善轉譯。模型會匹配提示風格。sk-XoMbaSlipXt1g01SjTvjT3B-lbkFJd13PWYDy44b2OFXKSz91'
 )
 
 user_api_key = st.text_input('請輸入您的 Open AI API 金鑰：', type="password")
@@ -93,25 +95,26 @@ if uploaded_file is not None:
         temp_file.write(uploaded_file.getvalue())
         temp_file_name = temp_file.name
 
-    if os.path.splitext(temp_file_name)[1] == ".mp4":
-        with st.spinner("壓縮音訊中..."):
-            start_time = time.time()
-            compressed_file = compress_audio(temp_file_name)
-            elapsed_time = time.time() - start_time
-            st.write(f"壓縮音訊所需時間：{elapsed_time:.2f} 秒")
-    else:
-        with st.spinner("壓縮音訊中..."):
-            start_time = time.time()
-            compressed_file = compress_audio(temp_file_name)
-            elapsed_time = time.time() - start_time
-            st.write(f"壓縮音訊所需時間：{elapsed_time:.2f} 秒")
-    
-    with st.spinner("生成字幕中..."):
+    with st.spinner("壓縮音訊中..."):
         start_time = time.time()
-        srt_file = f"srt_{os.path.basename(temp_file_name)}.srt"
-        transcribe_audio(compressed_file, srt_file, language_options[selected_language], user_prompt, user_api_key)
+        compressed_file = compress_audio(temp_file_name)
         elapsed_time = time.time() - start_time
-        st.write(f"生成字幕所需時間：{elapsed_time:.2f} 秒")
+        st.write(f"壓縮音訊所需時間：{elapsed_time:.2f} 秒")
+    
+    if translate_to_english:
+        with st.spinner("生成字幕並翻譯成英文中..."):
+            start_time = time.time()
+            srt_file = f"srt_{os.path.basename(temp_file_name)}_translated.srt"
+            translate_audio(compressed_file, srt_file, user_prompt, user_api_key)
+            elapsed_time = time.time() - start_time
+            st.write(f"生成字幕並翻譯成英文所需時間：{elapsed_time:.2f} 秒")
+    else:
+        with st.spinner("生成字幕中..."):
+            start_time = time.time()
+            srt_file = f"srt_{os.path.basename(temp_file_name)}.srt"
+            transcribe_audio(compressed_file, srt_file, language_options[selected_language], user_prompt, user_api_key)
+            elapsed_time = time.time() - start_time
+            st.write(f"生成字幕所需時間：{elapsed_time:.2f} 秒")
     
     total_elapsed_time = time.time() - total_start_time
     st.write(f"總共所需時間：{total_elapsed_time:.2f} 秒")
