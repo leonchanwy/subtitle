@@ -4,6 +4,7 @@ from pydub import AudioSegment
 import gdown
 import streamlit as st
 import time
+import yt-dlp
 from generate_subtitles import compress_audio, transcribe_audio, translate_audio
 import base64
 from io import BytesIO
