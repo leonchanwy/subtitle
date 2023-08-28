@@ -32,7 +32,7 @@ def compress_audio(input_file, target_size=21):
 
     return output_file
 
-def transcribe_audio(compressed_file, srt_file, language, prompt, api_key):
+def transcribe_audio(compressed_file, srt_file, language, prompt, api_key, temperature):
     
     with open(compressed_file, 'rb') as f:
         response = requests.post(
@@ -44,6 +44,7 @@ def transcribe_audio(compressed_file, srt_file, language, prompt, api_key):
                 'language': language, #這裏可以改你想轉譯的文字'zh'是中文'ja'是日文、'en'是英文
                 'prompt': prompt,
                 'response_format': 'srt',
+                'temperature': temperature,
             },
             files={'file': (compressed_file, f, 'audio/mpeg')}
         )
@@ -55,7 +56,7 @@ def transcribe_audio(compressed_file, srt_file, language, prompt, api_key):
         print(f"Error transcribing audio: {response.text}")
         raise Exception(f"Error transcribing audio: {response.text}")
 
-def translate_audio(compressed_file, srt_file, prompt, api_key):
+def translate_audio(compressed_file, srt_file, prompt, api_key, temperature):
     
     with open(compressed_file, 'rb') as f:
         response = requests.post(
@@ -66,6 +67,7 @@ def translate_audio(compressed_file, srt_file, prompt, api_key):
                 'model': 'whisper-1',
                 'prompt': prompt,
                 'response_format': 'srt',
+                'temperature': temperature,
             },
             files={'file': (compressed_file, f, 'audio/mpeg')}
         )

@@ -1,6 +1,7 @@
 import os
 import tempfile
-import pydub
+from pydub import AudioSegment
+import gdown
 import streamlit as st
 import time
 from generate_subtitles import compress_audio, transcribe_audio, translate_audio
@@ -12,6 +13,10 @@ st.set_page_config(page_title='影片字幕生成', layout='centered')
 
 st.title('影片字幕生成')
 st.warning('⚠️ 注意：本應用僅供 AmazingTalker 員工使用。')
+
+
+
+
 language_options = {
     '中文': 'zh',
     '英文': 'en',
@@ -85,8 +90,29 @@ user_prompt = st.text_input(
 )
 
 user_api_key = st.text_input('請輸入您的 Open AI API 金鑰：', type="password")
+temperature = st.number_input('請輸入 Temperature：', value=0.6)
 
-uploaded_file = st.file_uploader("請上傳 MP3 或 MP4 檔案：", type=["mp3", "mp4"])
+# 用於下載音頻的 YouTube 網址
+youtube_url = st.text_input("輸入 YouTube 影片網址:")
+
+# 用於下載音頻的 Google Drive 連結
+gdrive_url = st.text_input("或輸入 Google Drive 連結:")
+
+# 或者直接上傳音頻檔案
+uploaded_file = st.file_uploader("或請上傳 MP3 或 MP4 檔案：", type=["mp3", "mp4"])
+
+
+if youtube_url:
+    output_file = "downloaded_audio.mp3"
+    command = f'yt-dlp -x --audio-format mp3 -o "{output_file}" "{youtube_url}"'
+    os.system(command)
+    uploaded_file = BytesIO(open(output_file, "rb").read())
+
+elif gdrive_url:
+    output_file = "gdrive_file"
+    gdown.download(gdrive_url, output_file, quiet=False, fuzzy=True)
+    uploaded_file = BytesIO(open(output_file, "rb").read())
+
 
 if uploaded_file is not None:
     total_start_time = time.time()
@@ -105,14 +131,14 @@ if uploaded_file is not None:
         with st.spinner("生成字幕並翻譯成英文中..."):
             start_time = time.time()
             srt_file = f"srt_{os.path.basename(temp_file_name)}_translated.srt"
-            translate_audio(compressed_file, srt_file, user_prompt, user_api_key)
+            translate_audio(compressed_file, srt_file, user_prompt, user_api_key, temperature)
             elapsed_time = time.time() - start_time
             st.write(f"生成字幕並翻譯成英文所需時間：{elapsed_time:.2f} 秒")
     else:
         with st.spinner("生成字幕中..."):
             start_time = time.time()
             srt_file = f"srt_{os.path.basename(temp_file_name)}.srt"
-            transcribe_audio(compressed_file, srt_file, language_options[selected_language], user_prompt, user_api_key)
+            transcribe_audio(compressed_file, srt_file, language_options[selected_language], user_prompt, user_api_key, temperature)
             elapsed_time = time.time() - start_time
             st.write(f"生成字幕所需時間：{elapsed_time:.2f} 秒")
     

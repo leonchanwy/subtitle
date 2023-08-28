@@ -1,3 +1,4 @@
 pydub
 gdown
 Path
+yt-dlp
