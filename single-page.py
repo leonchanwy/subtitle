@@ -2,7 +2,6 @@ import os
 import tempfile
 from pydub import AudioSegment
 import gdown
-import yt-dlp
 import streamlit as st
 import time
 from generate_subtitles import compress_audio, transcribe_audio, translate_audio

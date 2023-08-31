@@ -2,3 +2,5 @@ pydub
 gdown
 Path
 yt-dlp
+streamlit
+ffmpeg

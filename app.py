@@ -216,7 +216,7 @@ elif page == "YouTube to MP4":
             
             # 使用 ffmpeg 轉換影片到 MP4
             output_file = "downloaded_video.mp4"
-            ffmpeg_command = f'ffmpeg -i "{temp_file}" -c:v libx264 -c:a aac "{output_file}"'
+            ffmpeg_command = f'ffmpeg -y -i "{temp_file}" -c:v libx264 -c:a aac "{output_file}"'
             os.system(ffmpeg_command)
             
             # 刪除臨時影片
