@@ -17,7 +17,7 @@ page = st.sidebar.radio("你要的功能", ("AI 生成字幕", "YouTube to MP3",
 if page == "AI 生成字幕":
     
     st.title('影片字幕生成')
-    st.warning('⚠️ 注意：本應用僅供 AmazingTalker 員工使用。')
+    st.warning('⚠️ 注意：本應用僅供 CakeResume 員工使用。')
 
 
 
