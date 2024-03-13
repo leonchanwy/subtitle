@@ -8,7 +8,7 @@ from generate_subtitles import compress_audio, transcribe_audio, translate_audio
 import base64
 from io import BytesIO
 
-st.set_page_config(page_title='AT剪接神器', layout='centered')
+st.set_page_config(page_title='剪接神器', layout='centered')
 
 # 使用 sidebar.radio 來讓使用者選擇頁面
 page = st.sidebar.radio("你要的功能", ("AI 生成字幕", "YouTube to MP3", "YouTube to MP4"), captions = ["把聲音轉譯/翻譯成字幕", "把YouTube影片下載為聲音", "把YouTube影片下載為影片"])
