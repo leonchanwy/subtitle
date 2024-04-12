@@ -17,7 +17,7 @@ page = st.sidebar.radio("你要的功能", ("AI 生成字幕", "YouTube to MP3",
 if page == "AI 生成字幕":
     
     st.title('影片字幕生成')
-    st.warning('⚠️ 注意：本應用僅供 CakeResume 員工使用。')
+    st.warning('⚠️ 注意：本應用為開源工具，程式碼都公開在 Github。')
 
 
 
@@ -86,7 +86,7 @@ if page == "AI 生成字幕":
 
     translate_to_english = st.checkbox("翻譯成英文")
 
-    default_prompt = 'CakeResume 中間是沒有空格的...?!'
+    default_prompt = 'Eko, Sandra 唱歌很好聽...?!'
 
     user_prompt = st.text_input(
         '請輸入 Prompt 以改進轉譯品質（如果轉譯語言不是中文，要刪去預設內容）：',
