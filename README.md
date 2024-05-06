@@ -1,15 +1,10 @@
-# AT字幕神器（aka 影音轉譯字幕與下載工具）
+# 字幕神器（aka 影音轉譯字幕與下載工具）
 
 這是一個多功能的影音轉譯字幕與下載工具，使用 Streamlit 框架開發，主要功能包括：
 
 1. AI 生成字幕：將影片或音訊轉譯成多種語言的字幕，並可選擇翻譯成英文。
 2. YouTube to MP3：從 YouTube 影片下載音訊並轉換為 MP3 格式。
 3. YouTube to MP4：從 YouTube 影片下載影片並轉換為 MP4 格式。
-
-
-**如果覺得有用的話歡迎請我喝個咖啡！**
-
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/leonchanwy)
 
 ## 開啓方法 1 : 網頁
 
