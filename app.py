@@ -540,8 +540,7 @@ def bilingual_srt_translator():
                         mime="text/plain"
                     )
 
-                    st.markdown(f"<p style='font-size: 10px; text-align: right;'>總處理時間：{
-                                processing_time:.2f} 秒</p>", unsafe_allow_html=True)
+                    st.markdown(f"<p style='font-size: 10px; text-align: right;'>總處理時間：{processing_time:.2f} 秒</p>", unsafe_allow_html=True)
 
 
 def main():
