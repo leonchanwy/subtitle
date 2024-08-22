@@ -75,8 +75,7 @@ def ai_subtitle_generator():
         if translate_to_english:
             with st.spinner("生成字幕並翻譯成英文中..."):
                 start_time = time.time()
-                srt_file = f"srt_{os.path.basename(
-                    temp_file_name)}_translated.srt"
+                srt_file = f"srt_{os.path.basename(temp_file_name)}_translated.srt"
                 translate_audio(compressed_file, srt_file,
                                 user_prompt, user_api_key, temperature)
                 elapsed_time = time.time() - start_time
