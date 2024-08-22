@@ -121,54 +121,6 @@ def ai_subtitle_generator():
             "- [生成內容摘要SRT](https://colab.research.google.com/drive/1VgfPTfmbU2kjJ7nMXkmNMWcVbvOyqX0N?usp=sharing)")
 
 
-def youtube_to_mp3():
-    st.title("YouTube Audio Downloader")
-    url = st.text_input("Enter the YouTube video URL:")
-
-    if url:
-        if st.button("Download Audio"):
-            output_file = "downloaded_audio.mp3"
-            command = f'yt-dlp -x --audio-format mp3 -o "{
-                output_file}" "{url}"'
-            os.system(command)
-
-            with open(output_file, 'rb') as f:
-                audio_data = f.read()
-            b64 = base64.b64encode(audio_data).decode()
-
-            href = f'<a href="data:audio/mpeg;base64,{b64}" download="{
-                output_file}" target="_blank">點擊此處下載音頻檔案</a>'
-            st.markdown(href, unsafe_allow_html=True)
-
-
-def youtube_to_mp4():
-    st.title("YouTube Video Downloader")
-    url = st.text_input("Enter the YouTube video URL:")
-
-    if url:
-        if st.button("Download Video"):
-            temp_file = "temp_video.mkv"
-            download_command = f'yt-dlp "{
-                url}" -S res,ext:mp4:m4a --merge-output-format mkv -o "{temp_file}"'
-            os.system(download_command)
-
-            output_file = "downloaded_video.mp4"
-            ffmpeg_command = f'ffmpeg -y -i "{
-                temp_file}" -c:v libx264 -c:a aac "{output_file}"'
-            os.system(ffmpeg_command)
-
-            if os.path.exists(temp_file):
-                os.remove(temp_file)
-
-            with open(output_file, 'rb') as f:
-                video_data = f.read()
-            b64 = base64.b64encode(video_data).decode()
-
-            href = f'<a href="data:video/mp4;base64,{b64}" download="{
-                output_file}" target="_blank">點擊此處下載影片檔案</a>'
-            st.markdown(href, unsafe_allow_html=True)
-
-
 def subtitle_time_sync():
     st.title("字幕時間同步器")
 
@@ -616,10 +568,6 @@ def main():
     # 根據選擇的頁面來顯示內容
     if page == "AI 生成字幕":
         ai_subtitle_generator()
-    elif page == "YouTube to MP3":
-        youtube_to_mp3()
-    elif page == "YouTube to MP4":
-        youtube_to_mp4()
     elif page == "字幕時間同步器":
         subtitle_time_sync()
     elif page == "雙語字幕大小調整工具":
