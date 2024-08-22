@@ -50,18 +50,10 @@ def ai_subtitle_generator():
     temperature = st.number_input('請輸入 Temperature：', value=0.6)
     user_api_key = st.text_input('請輸入您的 Open AI API 金鑰：', type="password")
 
-    youtube_url = st.text_input("輸入 YouTube 影片網址:")
     gdrive_url = st.text_input("或輸入 Google Drive 連結:")
     uploaded_file = st.file_uploader("或請上傳 MP3 或 MP4 檔案：", type=["mp3", "mp4"])
 
-    if youtube_url:
-        output_file = "downloaded_audio.mp3"
-        command = f"yt-dlp -x --audio-format mp3 -o {
-            output_file} {youtube_url}"
-        os.system(command)
-        with open(output_file, "rb") as f:
-            uploaded_file = BytesIO(f.read())
-    elif gdrive_url:
+    if gdrive_url:
         output_file = "gdrive_file"
         gdown.download(gdrive_url, output_file, quiet=False, fuzzy=True)
         with open(output_file, "rb") as f:
