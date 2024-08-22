@@ -99,8 +99,7 @@ def ai_subtitle_generator():
         srt_bytes = srt_data.encode('utf-8')
         b64 = base64.b64encode(srt_bytes).decode()
 
-        href = f'<a href="data:file/srt;base64,{b64}" download="{
-            srt_file}" target="_blank">點擊此處下載字幕檔案</a>'
+        href = f'<a href="data:file/srt;base64,{b64}" download="{srt_file}" target="_blank">點擊此處下載字幕檔案</a>'
         st.markdown(href, unsafe_allow_html=True)
 
         st.markdown("以下是一些實用連結：")
