@@ -262,7 +262,7 @@ def subtitle_time_sync():
 
 
 def bilingual_subtitle_resizer():
-    st.title('雙語字幕大小調整工具')
+    st.title('雙語字幕大小調整器')
 
     def escape_html(unsafe):
         return (unsafe
@@ -340,7 +340,7 @@ def bilingual_subtitle_resizer():
 
 
 def bilingual_srt_translator():
-    st.title("雙語 SRT 文件翻譯器")
+    st.title("雙語字幕翻譯器")
 
     def load_config():
         config = configparser.ConfigParser()
@@ -548,19 +548,17 @@ def main():
 
     # 使用 sidebar.radio 來讓使用者選擇頁面
     page = st.sidebar.radio("選擇功能",
-                            ("AI 生成字幕", "YouTube to MP3", "YouTube to MP4",
-                             "字幕時間同步器", "雙語字幕大小調整工具", "雙語 SRT 文件翻譯器"),
-                            captions=["把聲音轉譯/翻譯成字幕", "把YouTube影片下載為聲音", "把YouTube影片下載為影片",
-                                      "同步字幕與影片時間", "調整雙語字幕大小", "翻譯 SRT 文件"])
+                            ("AI 生成字幕", "雙語字幕翻譯器", "雙語字幕大小調整器", "字幕時間同步器"),
+                            captions=["把聲音轉譯成字幕","翻譯 SRT 文件","調整雙語字幕大小","同步字幕與分鏡點的時間"])
 
     # 根據選擇的頁面來顯示內容
     if page == "AI 生成字幕":
         ai_subtitle_generator()
     elif page == "字幕時間同步器":
         subtitle_time_sync()
-    elif page == "雙語字幕大小調整工具":
+    elif page == "雙語字幕大小調整器":
         bilingual_subtitle_resizer()
-    elif page == "雙語 SRT 文件翻譯器":
+    elif page == "雙語字幕翻譯器":
         bilingual_srt_translator()
 
 
