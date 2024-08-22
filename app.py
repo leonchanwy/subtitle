@@ -207,8 +207,7 @@ def subtitle_time_sync():
             srt_string = ""
             for i, (start_time, end_time, text) in enumerate(srt_data, start=1):
                 srt_string += f"{i}\n"
-                srt_string += f"{SRTWriter._timedelta_to_srt_time(start_time)} --> {
-                    SRTWriter._timedelta_to_srt_time(end_time)}\n"
+                srt_string += f"{SRTWriter._timedelta_to_srt_time(start_time)} --> {SRTWriter._timedelta_to_srt_time(end_time)}\n"
                 srt_string += f"{text}\n\n"
             return srt_string.rstrip()
 
