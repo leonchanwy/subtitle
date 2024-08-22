@@ -56,14 +56,16 @@ def ai_subtitle_generator():
 
     if youtube_url:
         output_file = "downloaded_audio.mp3"
-        command = f'yt-dlp -x --audio-format mp3 -o "{
-            output_file}" "{youtube_url}"'
+        command = f"yt-dlp -x --audio-format mp3 -o {
+            output_file} {youtube_url}"
         os.system(command)
-        uploaded_file = BytesIO(open(output_file, "rb").read())
+        with open(output_file, "rb") as f:
+            uploaded_file = BytesIO(f.read())
     elif gdrive_url:
         output_file = "gdrive_file"
         gdown.download(gdrive_url, output_file, quiet=False, fuzzy=True)
-        uploaded_file = BytesIO(open(output_file, "rb").read())
+        with open(output_file, "rb") as f:
+            uploaded_file = BytesIO(f.read())
 
     if uploaded_file is not None:
         total_start_time = time.time()
